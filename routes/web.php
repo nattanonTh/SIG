@@ -16,8 +16,11 @@ Route::get('/', 'HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home'); 
+
+// gallery
 Route::get('/gallery', 'ImageController@index'); 
 Route::post('/gallery/upload', 'ImageController@store'); 
+Route::post('/gallery/delete', 'ImageController@destroy'); 
 
 
 

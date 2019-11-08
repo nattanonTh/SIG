@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ImagesRequest;
 use App\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -43,6 +44,12 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $path = 'uploads';
+
+        $request->validate([
+            'file' => 'mimes:png,jpg,jpeg|max:10240'
+        ]);
+
+
         $file = $request->file('file');
 
         if ($file) {
@@ -101,8 +108,16 @@ class ImageController extends Controller
      * @param  \App\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy(Request $request)
     {
-        //
+        $image = Image::find($request->input('id'));
+        if ($image) {
+            if (Storage::exists('/uploads/' . $image->name)) {
+                Storage::delete('/uploads/' . $image->name);
+            }
+            $image->delete();
+            return ['status' => 1];
+        }
+        return ['status' => 0, 'message' => 'image not found.'];
     }
 }

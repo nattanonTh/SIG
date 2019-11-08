@@ -1,21 +1,13 @@
 export default class ImageGallery {
     constructor(data) {
+        this.uuid = this.uuidv4();
+        this.status = 'new';
+        this.percent = 0;
         for (let field in data) {
             this[field] = data[field];
+            this.status = 'old';
+            this.percent = 100;
         }
-        this.percent = 0;
-    }
-
-    getProgress() {
-        var xhr = new window.XMLHttpRequest();
-        xhr.upload.addEventListener("progress", (evt) => {
-            if (evt.lengthComputable) {
-                var percentComplete = evt.loaded / evt.total;
-                this.percent = percentComplete * 100;
-            }
-        }, false);
-
-        return xhr;
     }
 
     getPercentSucess() {
@@ -26,6 +18,17 @@ export default class ImageGallery {
         for (let field in data) {
             this[field] = data[field];
         }
-        alert('done');
+        this.status = 'old'
+    }
+
+    setFormData(data) {
+        this.formData = data;
+    }
+
+    uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
     }
 }

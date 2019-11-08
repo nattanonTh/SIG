@@ -7,17 +7,18 @@ Vue.component('image-gallery', require('./components/ImageGallery').default);
 Vue.component('uploaded-image', require('./components/Image').default);
 
 
-let imagesList = [];
+let imageslist = [];
 
 if (defaultImage) {
     defaultImage.forEach(element => {
-        imagesList.push(new ImageGallery(element))
+        imageslist.push(new ImageGallery(element))
     });
 }
 
-let app = new Vue({
+
+window.app = new Vue({
     el: '#gallery',
     data: {
-        'imagesList': imagesList
+        defaultimage : imageslist
     }
 });

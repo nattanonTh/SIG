@@ -8,8 +8,7 @@
                 <div class="card-header">Gallery</div>
                 <div class="card-body">
                     <div id='gallery'>
-                        <dropzone v-bind:imageslist="imagesList"></dropzone>
-                        <image-gallery v-bind:imageslist="imagesList"></image-gallery>
+                        <image-gallery :defaultimage="defaultimage"></image-gallery>
                     </div>
                 </div>
             </div>

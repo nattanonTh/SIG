@@ -10,9 +10,7 @@
 </template>
 
 <script>
-    import ImageGallery from '../imagegallery.js';
     export default {
-        props: ['imageslist'],
         data: () => {
             return {
                 files: [],
@@ -50,31 +48,9 @@
                 this.uploadFile();
             },
             uploadFile() {
-                let formData = new FormData();
+                // let formData = new FormData();
                 this.files.forEach((file, index) => {
-                    formData.append('file', file);
-                    let tempImageObj = new ImageGallery();
-                    this.imageslist.push(tempImageObj);
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        xhr: tempImageObj.getProgress,
-                        url: '/gallery/upload',
-                        method: "POST",
-                        data: formData,
-                        dataType: "json",
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        enctype: 'multipart/form-data',
-                        success: (res) => {
-                            if (res.status) {
-                                tempImageObj.triggerDone(res.newImage);
-                                this.$emit('done');
-                            }
-                        }
-                    });
+                    this.$emit('uploadfile', file);
                 });
 
                 this.files = [];

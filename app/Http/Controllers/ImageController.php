@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImagesRequest;
 use App\Image;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +21,7 @@ class ImageController extends Controller
     public function index()
     {
         //
+        return  view('gallery', ['iamgeList' => Image::all()]);
     }
 
     /**
@@ -35,7 +42,23 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $path = 'uploads';
+        $file = $request->file('file');
+
+        if ($file) {
+            // save file
+            $fullPath = $file->store($path);
+
+            // create image record
+            $image = Image::create([
+                'name' => $file->hashName(),
+               'type' => $file->getMimeType(),
+                'size' => $file->getSize(),
+                'path' => 'storage/' . $fullPath,
+            ]);
+            return ['status' => 1, 'newImage' => $image];
+        }
+        return ['status' => 0, 'message' => 'file not found'];
     }
 
     /**

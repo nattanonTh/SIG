@@ -11,11 +11,11 @@
                     <div>
                         <div class="form-group row">
                             <label for="" class="col-sm-2 col-form-label">Total Size:</label>
-                            <label for="" class="col-sm-10 col-form-label">0.00 MB (0B)</label>
+                            <label for="" class="col-sm-10 col-form-label">{{ $images->getMbyteSize() }} MB ({{ $images->getByteSize() }} B)</label>
                         </div>
                         <div class="form-group row">
                             <label for="" class="col-sm-2 col-form-label">No of files:</label>
-                            <label for="" class="col-sm-10 col-form-label">0</label>
+                            <label for="" class="col-sm-10 col-form-label">{{ $images->count() }}</label>
                         </div>
                     </div>
                 </div>
@@ -35,9 +35,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (count($types = $images->getAllFileType()))
+                                @foreach ($types as $type =>  $imagetype)
+                                <tr>
+                                <td colspan="1" class="text-canter">{{ $type }}</td>
+                                <td colspan="1" class="text-canter">{{ $images->getCountWithType($type) }}</td>
+                                <td colspan="1" class="text-canter">{{ $images->getMbyteSize($type) }} MB ({{ $images->getByteSize($type) }} B)</td>
+                                </tr>
+                                @endforeach
+                                @else
                                 <tr>
                                     <td colspan="3" class="text-canter">No data</td>
                                 </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>

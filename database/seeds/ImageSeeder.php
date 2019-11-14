@@ -14,7 +14,6 @@ class ImageSeeder extends Seeder
     {
 
         //
-        // change
         Image::create(['type'=> 'image/jpeg', 'name' => 'test', 'size' => 150000, 'path' => 'uploads/']);
         Image::create(['type'=> 'image/jpeg', 'name' => 'test', 'size' => 150000, 'path' => 'uploads/']);
         Image::create(['type'=> 'image/jpeg', 'name' => 'test', 'size' => 150000, 'path' => 'uploads/']);

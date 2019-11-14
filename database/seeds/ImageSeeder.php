@@ -12,10 +12,6 @@ class ImageSeeder extends Seeder
      */
     public function run()
     {
-
-        //
-
-        // test change
         Image::create(['type'=> 'image/jpeg', 'name' => 'test', 'size' => 150000, 'path' => 'uploads/']);
         Image::create(['type'=> 'image/jpeg', 'name' => 'test', 'size' => 150000, 'path' => 'uploads/']);
         Image::create(['type'=> 'image/jpeg', 'name' => 'test', 'size' => 150000, 'path' => 'uploads/']);

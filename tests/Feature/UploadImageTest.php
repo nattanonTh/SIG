@@ -27,7 +27,7 @@ class UploadImage extends TestCase
         $response = $this->get('/');
         $response->assertStatus(200);
         $response->assertSee('600,000 B');
-
+// change
     }
 
     /** @test */
